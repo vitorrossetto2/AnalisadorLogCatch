@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AnalyserLogCatch\AnalyserLogCatch.csproj" />
+    <ProjectReference Include="..\AnalisadorLogCatch\AnalisadorLogCatch.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,9 +4,9 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TestHelper;
-using AnalyserLogCatch;
+using AnalisadorLogCatch;
 
-namespace AnalyserLogCatch.Test
+namespace AnalisadorLogCatch.Test
 {
     [TestClass]
     public class UnitTest : CodeFixVerifier
@@ -41,7 +41,7 @@ namespace AnalyserLogCatch.Test
     }";
             var expected = new DiagnosticResult
             {
-                Id = "AnalyserLogCatch",
+                Id = "AnalisadorLogCatch",
                 Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
@@ -71,12 +71,12 @@ namespace AnalyserLogCatch.Test
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new AnalyserLogCatchCodeFixProvider();
+            return new AnalisadorLogCatchCodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new AnalyserLogCatchAnalyzer();
+            return new AnalisadorLogCatchAnalyzer();
         }
     }
 }
