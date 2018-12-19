@@ -108,8 +108,20 @@ namespace AnalisadorLogCatch
                                 SyntaxFactory.TriviaList(
                                     SyntaxFactory.LineFeed)));
 
+            var primeiroNoCatch = blocoCatch.ChildNodes().FirstOrDefault();
+
+            BlockSyntax novoBlocoCatch;
+
             //inserindo o novo código antes do primeiro nó do catch
-            var novoBlocoCatch = blocoCatch.InsertNodesBefore(blocoCatch.ChildNodes().First(), new SyntaxList<StatementSyntax>(new StatementSyntax[] { chamadaLog }));
+            if (primeiroNoCatch != null)
+            {
+                novoBlocoCatch = blocoCatch.InsertNodesBefore(primeiroNoCatch, new SyntaxList<StatementSyntax>(new StatementSyntax[] { chamadaLog }));
+            }
+            else
+            {
+                novoBlocoCatch = blocoCatch.WithStatements(new SyntaxList<StatementSyntax>(new StatementSyntax[] { chamadaLog }));
+            }
+            
 
             //formatando (como se fosse CTRL + K + D)
             var novoBlocoCatchFormatado = novoBlocoCatch.WithAdditionalAnnotations(Formatter.Annotation);
