@@ -9,17 +9,18 @@
   <PropertyGroup>
     <PackageId>AnalisadorLogCatch</PackageId>
     <PackageVersion>1.0.0.0</PackageVersion>
-    <Authors>Vitor</Authors>
+    <Authors>Vitor Rossetto</Authors>
     <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
     <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
     <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
     <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>AnalisadorLogCatch</Description>
+    <Description>Analisador de código que verifica se os blocos catch tem algum tratamento de erro.</Description>
     <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
     <Copyright>Copyright</Copyright>
     <PackageTags>AnalisadorLogCatch, analyzers</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
+    <Company>Vitor Rossetto</Company>
   </PropertyGroup>
 
   <ItemGroup>
