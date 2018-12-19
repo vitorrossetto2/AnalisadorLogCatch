@@ -54,34 +54,59 @@ namespace AnalisadorLogCatch
             //procurando o bloco do catch
             var blocoCatch = @catch.DescendantNodes().OfType<BlockSyntax>().First();
 
-            //criando a seguinte expressão : logger.Error(ex, "Erro na classe")
+            var declaracaoCatch = @catch.DescendantNodes().OfType<CatchDeclarationSyntax>().FirstOrDefault();
+
+            CatchDeclarationSyntax novaDeclaracaoCatch = null;
+
+            string nomeVariavelCatch = null;
+
+            var declaracaoVariavel = declaracaoCatch.ChildTokens().FirstOrDefault(x => x.Kind() == SyntaxKind.IdentifierToken);
+
+            //se não encontrou a variável no catch cria uma chamada ex
+            //se encontrou recupera o nome da mesma para inserção posteriormente no log
+            if (declaracaoVariavel == null || string.IsNullOrEmpty(declaracaoVariavel.Text))
+            {
+                novaDeclaracaoCatch = declaracaoCatch.WithIdentifier(SyntaxFactory.ParseToken(" ex"));
+            }
+            else
+            {
+                nomeVariavelCatch = declaracaoVariavel.Text;
+            }
+
+            //obtendo o nome do método que o catch está dentro para colocar no log
+            var metodoCatchDentro = @catch.Ancestors().OfType<MethodDeclarationSyntax>().First();
+
+            //mesma coisa para o nome da classe
+            var classeCatchDentro = @catch.Ancestors().OfType<ClassDeclarationSyntax>().First();
+
+            //criando a seguinte expressão : logger.Error(ex, "Erro no método x da classe y")
             var chamadaLog = SyntaxFactory.ExpressionStatement(
-                                SyntaxFactory.InvocationExpression(
-                                    SyntaxFactory.MemberAccessExpression(
-                                        SyntaxKind.SimpleMemberAccessExpression,
-                                        SyntaxFactory.IdentifierName("logger"),
-                                        SyntaxFactory.IdentifierName("Error")))
-                            .WithArgumentList(
-                                SyntaxFactory.ArgumentList(
-                                    SyntaxFactory.SeparatedList<ArgumentSyntax>(
-                                        new SyntaxNodeOrToken[]{
-                                            SyntaxFactory.Argument(
-                                                SyntaxFactory.IdentifierName("ex")),
-                                            SyntaxFactory.Token(
-                                                SyntaxFactory.TriviaList(),
-                                                SyntaxKind.CommaToken,
-                                                SyntaxFactory.TriviaList(
-                                                    SyntaxFactory.Space)),
-                                            SyntaxFactory.Argument(
-                                                SyntaxFactory.LiteralExpression(
-                                                    SyntaxKind.StringLiteralExpression,
-                                                    SyntaxFactory.Literal("Erro na classe")))}))))
-                            .WithSemicolonToken(
-                                SyntaxFactory.Token(
-                                    SyntaxFactory.TriviaList(),
-                                    SyntaxKind.SemicolonToken,
-                                    SyntaxFactory.TriviaList(
-                                        SyntaxFactory.LineFeed)));
+                            SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.MemberAccessExpression(
+                                    SyntaxKind.SimpleMemberAccessExpression,
+                                    SyntaxFactory.IdentifierName("logger"),
+                                    SyntaxFactory.IdentifierName("Error")))
+                        .WithArgumentList(
+                            SyntaxFactory.ArgumentList(
+                                SyntaxFactory.SeparatedList<ArgumentSyntax>(
+                                    new SyntaxNodeOrToken[]{
+                                        SyntaxFactory.Argument(
+                                            SyntaxFactory.IdentifierName(nomeVariavelCatch ?? "ex")),
+                                        SyntaxFactory.Token(
+                                            SyntaxFactory.TriviaList(),
+                                            SyntaxKind.CommaToken,
+                                            SyntaxFactory.TriviaList(
+                                                SyntaxFactory.Space)),
+                                        SyntaxFactory.Argument(
+                                            SyntaxFactory.LiteralExpression(
+                                                SyntaxKind.StringLiteralExpression,
+                                                SyntaxFactory.Literal($"Erro no método {metodoCatchDentro.Identifier.Text} da classe {classeCatchDentro.Identifier.Text}")))}))))
+                        .WithSemicolonToken(
+                            SyntaxFactory.Token(
+                                SyntaxFactory.TriviaList(),
+                                SyntaxKind.SemicolonToken,
+                                SyntaxFactory.TriviaList(
+                                    SyntaxFactory.LineFeed)));
 
             //inserindo o novo código antes do primeiro nó do catch
             var novoBlocoCatch = blocoCatch.InsertNodesBefore(blocoCatch.ChildNodes().First(), new SyntaxList<StatementSyntax>(new StatementSyntax[] { chamadaLog }));
@@ -90,9 +115,20 @@ namespace AnalisadorLogCatch
             var novoBlocoCatchFormatado = novoBlocoCatch.WithAdditionalAnnotations(Formatter.Annotation);
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
-            var newRoot = oldRoot.ReplaceNode(blocoCatch, novoBlocoCatchFormatado);
-
-            return document.WithSyntaxRoot(newRoot);
+            
+            //estou utilizando duas maneiras para o code fix pois pode haver o caso da variavel existir e ela ser reaproveitada
+            //ou tem o caso que é criada uma nova variavel para o catch
+            if(novaDeclaracaoCatch != null)
+            {
+                var newRoot = oldRoot.ReplaceNodes(new SyntaxNode[] { declaracaoCatch, blocoCatch }, 
+                    (noAtual, novoNo) => { return (noAtual == declaracaoCatch) ? (SyntaxNode)novaDeclaracaoCatch : (SyntaxNode)novoBlocoCatch; });
+                return document.WithSyntaxRoot(newRoot);
+            }
+            else
+            {
+                var newRoot = oldRoot.ReplaceNode(blocoCatch, novoBlocoCatchFormatado);
+                return document.WithSyntaxRoot(newRoot);
+            }
         }
     }
 }
