@@ -7931,11 +7931,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\AnalisadorLogCatch.Test.csproj",
+      "projectUniqueName": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\AnalisadorLogCatch.Test.csproj",
       "projectName": "AnalisadorLogCatch.Test",
-      "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\AnalisadorLogCatch.Test.csproj",
+      "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\AnalisadorLogCatch.Test.csproj",
       "packagesPath": "C:\\Users\\Vitor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\obj\\",
+      "outputPath": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7956,8 +7956,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj": {
-              "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj"
+            "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj": {
+              "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj"
             }
           }
         }

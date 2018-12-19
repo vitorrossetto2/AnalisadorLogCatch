@@ -5312,11 +5312,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj",
+      "projectUniqueName": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj",
       "projectName": "AnalisadorLogCatch",
-      "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj",
+      "projectPath": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch.csproj",
       "packagesPath": "C:\\Users\\Vitor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitor\\source\\repos\\AnalisadorLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\obj\\",
+      "outputPath": "C:\\Users\\Vitor\\source\\repos\\AnalyserLogCatch\\AnalisadorLogCatch\\AnalisadorLogCatch\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
